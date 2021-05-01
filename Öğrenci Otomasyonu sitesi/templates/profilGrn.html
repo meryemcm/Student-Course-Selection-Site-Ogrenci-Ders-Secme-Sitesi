@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Profil Bilgileri </title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/editProfile.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+<body>
+<div id="title">
+	<a href="/anasayfa">
+		<img id="logo" src= {{ url_for('static', filename='images/sitelogo.png') }} />
+	</a>
+
+	{% if not girildiMi %}
+	<div id="signInButton">
+		<a class="link" href="/">Giriş Yap</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Geçmiş Seçimler</a>
+			<a href="/account/profile">Profil</a>
+      <a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}" >Admin Panel</a>
+			<hr>
+			<a href="/logout">Çıkış</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			derssecimi ( {{derssecimiSayac}} )
+		</a>
+	</div>
+</div>
+
+<div class="display">
+	<h2 align="center">Profil Bilgileri</h2>
+
+  <table align="center">
+  <tr>
+    <th>Email:</th>
+    <td>{{profilVeri[1]}}</td>
+  </tr>
+  <tr>
+    <th>Ad:</th>
+    <td>{{profilVeri[2]}}</td>
+  </tr>
+  <tr>
+    <th>Soyad:</th>
+    <td>{{profilVeri[3]}}</td>
+  </tr>
+  <tr>
+    <th>1. Adres:</th>
+    <td>{{profilVeri[4]}}</td>
+  </tr>
+  <tr>
+    <th>2. Adres:</th>
+    <td>{{profilVeri[5]}}</td>
+  </tr>
+  <tr>
+    <th>Posta Kodu:</th>
+    <td>{{profilVeri[6]}}</td>
+  </tr>
+  <tr>
+    <th>İlçe:</th>
+    <td>{{profilVeri[7]}}</td>
+  </tr>
+  <tr>
+    <th>İl:</th>
+    <td>{{profilVeri[8]}}</td>
+  </tr>
+  <tr>
+    <th>Ülke:</th>
+    <td>{{profilVeri[9]}}</td>
+  </tr>
+  <tr>
+    <th>Telefon:</th>
+    <td>{{profilVeri[10]}}</td>
+  </tr>
+</table>
+</div>
+</body>
+</html>

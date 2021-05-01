@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Sınıf : {{sinifAdi}}</title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: blueviolet;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: lightskyblue ;
+}
+</style>
+</head>
+<body>
+<div id="title">
+	<a href="/anasayfa">
+		<img id="logo" src= {{ url_for('static', filename='images/sitelogo.png') }} />
+	</a>
+
+	{% if not girildiMi %}
+	<div id="signInButton">
+		<a class="link" href="/">Giriş Yap</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Geçmiş Seçimler</a>
+			<a href="/account/profile">Profil</a>
+			<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}" >Admin Panel</a>
+			<hr>
+			<a href="/logout">Çıkış</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			derssaati ( {{derssaatiSayac}} )
+		</a>
+	</div>
+</div>
+
+<div class="displayCategory">
+	<ul>
+		{% for row in sinifVeri %}
+		<li><a href="/displayCategory?sinifId={{row[0]}}">{{row[1]}}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+
+<div>
+	<h1 align="center">{{sinifAdi}}</h1>
+	{% for dersVeri in data %}
+	<table>
+		<tr id="lessonName">
+			{% for row in dersVeri %}
+			<td>
+				{{row[1]}}
+			</td>
+			{% endfor %}
+		</tr>
+		<tr id="lessonImage">
+			{% for row in dersVeri %}
+			<td>
+				<a href="/lessonDescription?lessonId={{row[0]}}">
+					<img src={{ url_for('static', filename='uploads/' + row[3]) }} id="itemImage" />
+				</a>
+			</td>
+			{% endfor %}
+		</tr>
+		<tr id="lessonPrice">
+			{% for row in dersVeri %}
+			<td>
+				{{row[2]}} saat
+			</td>
+			{% endfor %}
+		</tr>
+	</table>
+	{% endfor %}
+</div>
+</body>
+</html>

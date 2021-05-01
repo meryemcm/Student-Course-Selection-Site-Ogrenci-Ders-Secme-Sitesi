@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Ders Guncelleme</title>
+	<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+	<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+	<style>
+		ul {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			background-color: SlateGray;
+		}
+
+		li {
+			float: left;
+		}
+
+		li a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		li a:hover {
+			background-color: rgb(148, 148, 148);
+		}
+
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 50%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="title">
+		<a href="/anasayfa">
+			<img id="logo" src={{ url_for('static', filename='images/sitelogo.png') }} />
+		</a>
+
+		{% if not girildiMi %}
+		<div id="signInButton">
+			<a class="link" href="/">Giriş Yap</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Geçmiş Seçimler</a>
+				<a href="/account/profile">Profil</a>
+				<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}">Admin Panel</a>
+				<hr>
+				<a href="/logout">Çıkış</a>
+			</div>
+		</div>
+		{% endif %}
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+				derssaati ( {{derssaatiSayac}} )
+			</a>
+		</div>
+	</div>
+	<div style="max-width:1564px">
+		<div class="display">
+			<h2 align="center">Ders Güncelleme</h2>
+			<form action="/updateitem" method="POST">
+				<div class="display" align="center">
+					<table>
+						<tr>
+							<th>Ders:</th>
+							<td><select name="dersler">
+									{% for row in dersler %}
+									<option value="{{row[0]}}">{{row[1]}}</option>
+									{% endfor %}
+								</select></td>
+						</tr>
+						<tr>
+							<th>İsim:</th>
+							<td><input name="isim" type="text" placeholder="Dersin İsmini Degistir"></td>
+						</tr>
+						<tr>
+							<th>Ders Saati:</th>
+							<td><input name="derssaati" type="text" placeholder="Dersin Saatini Değiştir"></td>
+						</tr>
+					</table>
+					<br>
+					<button class="w3-btn w3-black" type="submit">Guncelle</button>
+				</div>
+			</form>
+
+			<p><a href="/AdminPanel" class="button button2"> Admin Sayfasi</a> </p>
+		</div>
+	</div>
+</body>
+
+</html>

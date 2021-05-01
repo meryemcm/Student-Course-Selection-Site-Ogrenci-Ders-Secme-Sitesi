@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Profil Anasayfası</title>
+	<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+	<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+
+<body>
+	<div id="title">
+		<a href="/anasayfa">
+			<img id="logo" src={{ url_for('static', filename='images/sitelogo.png') }} />
+		</a>
+
+		{% if not girildiMi %}
+		<div id="signInButton">
+			<a class="link" href="/">Giriş Yap</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Geçmiş Seçimler</a>
+				<a href="/account/profile">Profil</a>
+				<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}">Admin Panel</a>
+				<hr>
+				<a href="/logout">Çıkış</a>
+			</div>
+		</div>
+		{% endif %}
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+				derssecimi ( {{derssecimiSayac}} )
+			</a>
+		</div>
+	</div>
+	<h1 align="center"> Profil Anasayfası</h1>
+	<div class="display" align="center">
+		<a href="/account/profile/view" class="button button2">Profili Görüntüle</a>
+		<a href="/account/profile/edit" class="button button2">Profili Düzenle</a>
+		<a href="/account/profile/changePassword" class="button button2">Şifre Değiştir</a>
+	</div>
+</body>
+
+</html>

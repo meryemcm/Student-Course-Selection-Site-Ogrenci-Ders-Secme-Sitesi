@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Ders Açıklaması</title>
+<link rel="stylesheet" href={{url_for('static', filename='css/lessonDescription.css')}} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css')}} />
+</head>
+<body>
+<div id="title">
+	<a href="/">
+		<img id="logo" src= {{ url_for('static', filename='images/sitelogo.png') }} />
+	</a>
+
+	{% if not girildiMi %}
+	<div id="signInButton">
+		<a class="link" href="/">Giriş Yap</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Geçmiş Seçimler</a>
+			<a href="/account/profile">Profil</a>
+			<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}" >Admin Panel</a>
+			<hr>
+			<a href="/logout">Çıkış</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			dessecimi ( {{derssecimiSayac}} )
+		</a>
+	</div>
+</div>
+<div id="display">
+	<div id="lessonName">
+		<h1>{{data[1]}}</h1>
+	</div>
+	<div>
+		<img src={{url_for('static', filename='uploads/'+data[4]) }} id="lessonImage"/>
+	</div>
+
+	<div id="lessonDescription">
+		<h2>Detaylar</h2>
+		<hr>
+		<table id="descriptionTable">
+			<tr>
+				<td>Ders Adı:</td>
+				<td>{{data[1]}}</td>
+			</tr>
+			<tr>
+				<td>Ders Saati:</td>
+				<td>{{data[2]}} saat</td>
+			</tr>
+			<tr>
+				<td>Kontejan:</td>
+				<td>{{data[5]}}</td>
+			</tr>
+			<tr>
+				<td>Öğretmen Id:</td>
+				<td>{{data[6]}}</td>
+			</tr>
+		</table>
+		<h2>Açıklama</h2>
+		<hr>
+		<p>{{data[3]}}</p>
+	</div>
+	<div id="addToCart">
+		<a href="/addToCart?lessonId={{request.args.get('lessonId')}}" class="button button2">Ders Seçimine Ekle</a>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Öğretmen Ekleme</title>
+<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: SlateGray;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: rgb(148, 148, 148);
+}
+</style>
+</head>
+<body>
+<div id="title">
+	<a href="/anasayfa">
+		<img id="logo" src= {{ url_for('static', filename='images/sitelogo.png') }} />
+	</a>
+
+	{% if not girildiMi %}
+	<div id="signInButton">
+		<a class="link" href="/">Giriş Yap</a>
+	</div>
+	{% else %}
+	<div class="dropdown">
+		<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+		<div class="dropdown-content">
+			<a href="/account/orders">Geçmiş Seçimler</a>
+			<a href="/account/profile">Profil</a>
+			<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}" >Admin Panel</a>
+			<hr>
+			<a href="/logout">Çıkış</a>
+		</div>
+	</div>
+	{% endif %}
+	<div id="kart">
+		<a class="link" href="/cart">
+			<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+			derssecimi ( {{derssecimiSayac}} )
+		</a>
+	</div>
+</div>
+<div class="w3-content w3-padding" style="max-width:1564px">
+<div class="display">
+
+<form class="w3-panel w3-card-4" action="/addogretmenitem" method="POST" align="center">
+  <h2>Öğretmen Ekleme</h2>
+
+  <p><input name="isim" class="w3-input" type="text" placeholder="Yeni Öğretmen Girişi" ></p>
+  <p><button class="w3-btn w3-black">Ekle</button></p> 
+  
+</form>
+</div>
+</div>
+<p><a href="/AdminPanel" class="button button2"> Admin Sayfasi </a>  </p> 
+</body>
+</html>

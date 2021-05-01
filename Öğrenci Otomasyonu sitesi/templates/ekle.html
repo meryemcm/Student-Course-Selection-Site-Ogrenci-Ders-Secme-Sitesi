@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Ders Ekleme</title>
+	<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+	<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+
+<style>
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 50%;
+	}
+
+	td,
+	th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
+</style>
+
+<body>
+	<div id="title">
+		<a href="/anasayfa">
+			<img id="logo" src={{ url_for('static', filename='images/sitelogo.png') }} />
+		</a>
+
+		{% if not girildiMi %}
+		<div id="signInButton">
+			<a class="link" href="/">Giriş Yap</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Geçmiş Seçimler</a>
+				<a href="/account/profile">Profil</a>
+				<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}">Admin Panel</a>
+				<hr>
+				<a href="/logout">Çıkış</a>
+			</div>
+		</div>
+		{% endif %}
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+				derssecimi ( {{derssecimiSayac}} )
+			</a>
+		</div>
+	</div>
+
+	<h2 align="center">Ders Ekle</h2>
+	<form action="/addItem" method="POST" enctype="multipart/form-data">
+		<div class="display" align="center">
+			<table>
+				<tr>
+					<th>Ders Adı:</th>
+					<td><input type="text" name="isim"></td>
+				</tr>
+				<tr>
+					<th>Ders Saati:</th>
+					<td><input type="text" name="derssaati"></td>
+				</tr>
+				<tr>
+					<th>Açıklama:</th>
+					<td><textarea name="aciklama" rows=3 cols="40"></textarea></td>
+				</tr>
+				<tr>
+					<th>Fotoğraf:</th>
+					<td><input type="file" name="resim"></td>
+				</tr>
+				<tr>
+					<th>Kontejan:</th>
+					<td><input type="text" name="kontejan"></td>
+				</tr>
+				
+				<tr>
+					<th>Sınıf:</th>
+					<td><select name="sinif">
+							{% for row in siniflar %}
+							<option value="{{row[0]}}">{{row[1]}}</option>
+							{% endfor %}
+						</select></td>
+				</tr>
+				<tr>
+					<th>Öğretmen:</th>
+					<td><select name="ogretmen">
+							{% for row in ogretmenler %}
+							<option value="{{row[0]}}">{{row[1]}}</option>
+							{% endfor %}
+						</select></td>
+				</tr>
+				
+			</table>
+			<br>
+			<button class="w3-btn w3-black" type="submit">Ekle</button>
+		</div>
+	</form>
+
+	<p><a href="/AdminPanel" class="button button2"> Admin Sayfasi</a> </p>
+</body>
+
+</html>

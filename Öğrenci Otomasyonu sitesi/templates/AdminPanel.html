@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Admin</title>
+	<link rel="stylesheet" href={{ url_for('static', filename='css/home.css') }} />
+	<link rel="stylesheet" href={{ url_for('static', filename='css/topStyle.css') }} />
+</head>
+
+<body>
+	<div id="title">
+		<a href="/anasayfa">
+			<img id="logo" src={{ url_for('static', filename='images/sitelogo.png') }} />
+		</a>
+
+		{% if not girildiMi %}
+		<div id="signInButton">
+			<a class="link" href="/">Giriş Yap</a>
+		</div>
+		{% else %}
+		<div class="dropdown">
+			<button class="dropbtn">Hoşgeldin, <br>{{adi}}</button>
+			<div class="dropdown-content">
+				<a href="/account/orders">Geçmiş Seçimler</a>
+				<a href="/account/profile">Profil</a>
+				<a href="/AdminPanel" class="w3-bar-item w3-button" style="{{adminpanel}}">Admin Panel</a>
+				<hr>
+				<a href="/logout">Çıkış</a>
+			</div>
+		</div>
+		{% endif %}
+		<div id="kart">
+			<a class="link" href="/cart">
+				<img src={{url_for('static', filename='images/shoppingCart.png')}} id="cartIcon" />
+				derssecimi ( {{derssecimiSayac}} )
+			</a>
+		</div>
+	</div>
+
+	<h1 align="center">Admin Paneli</h1>
+	<div class="display" align="center">
+		<a href="/add" class="button button2">Ders Ekle</a>
+		<a href="/remove" class="button button2">Ders Sil</a>
+		<a href="/update" class="button button2">Ders Güncelle</a>
+		<a href="/addCategory" class="button button2">Sınıf Ekle</a>
+		<a href="/addOgretmen" class="button button2">Ogretmen Ekle</a>
+	</div>
+
+</body>
+
+</html>
